@@ -1,0 +1,26 @@
+  - name: Deploy AD
+    hosts: windows
+    tasks:
+    - name: Set DC hostname
+      ansible.windows.win_hostname:
+        name: "dc"
+
+    - name: Install Active Directory Domain Services (ADDS)
+      ansible.windows.win_feature:
+        name: AD-Domain-Services
+        state: present
+        include_management_tools: true
+      register: ad_feature_result
+
+    - name: Install DNS
+      ansible.windows.win_feature:
+        name: DNS
+        state: present
+        include_management_tools: true
+
+    - name: Create AD domain and reboot
+      microsoft.ad.domain: 
+        dns_domain_name: "hockey.cdtcharlie.com"
+        safe_mode_password: password123!
+        create_dns_delegation: false
+        reboot: true
