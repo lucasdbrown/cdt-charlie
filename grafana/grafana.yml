@@ -8,7 +8,7 @@
      grafana_domain: "CharlieGreyTeam"
      grafana_root_url: "http://{{grafana_domain}}: {{grafana_http_port}}/"
      grafana_admin_user: admin
-     grafana_admin_password: "{{ vault_grafana_admin_password }}"   # store in Ansible Vault
+     grafana_admin_password: "Password123!" # change this!!
 
    tasks:
     - name: Install prerequisite packages
