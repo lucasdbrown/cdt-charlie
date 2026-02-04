@@ -19,3 +19,12 @@ INSERT INTO test_table (message) VALUES
 ('Team Charlie example website connected to MySQL database successfully!'),
 ('Example message 2'),
 ('I hope this works...');
+
+
+CREATE TABLE IF NOT EXISTS players {
+    if INT AUTO_INCREMENT PRIMARY KEY, 
+    name VARCHAR(50), 
+    team VARCHAR(50), 
+    player_number INT, 
+    position VARCHAR(10), 
+}
