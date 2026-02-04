@@ -1,0 +1,38 @@
+---
+- name: Grey Team Windows Environment Setup
+  hosts: windows
+  tasks:
+
+    - name: Disable Windows Firewall
+      community.windows.win_firewall:
+        state: disabled
+        profiles:
+          - Domain
+          - Private
+          - Public
+        
+    - name: Install OpenSSH Server
+      microsoft.ad.win_optional_feature:
+        name: OpenSSH.Server~~~~0.0.1.0
+        state: present
+    
+    - name: Start and Automate SSH Service
+      win_service:
+        name: sshd
+        start_mode: auto
+        state: started
+
+    - name: Ensure Chocolatey is installed
+      win_chocolatey:
+        name: chocolatey
+        state: present
+
+    - name: Install Sysinternals Suite
+      win_chocolatey:
+        name: sysinternals
+        state: latest
+        
+    - name: Install Wireshark
+      win_chocolatey:
+        name: wireshark
+        state: latest
