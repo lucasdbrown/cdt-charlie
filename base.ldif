@@ -1,0 +1,15 @@
+dn: dc=yourgroup,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: Your Group Name Here
+dc: yourgroup
+
+dn: ou=People,dc=yourgroup,dc=com
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=yourgroup,dc=com
+objectClass: organizationalUnit
+ou: Groups
+
