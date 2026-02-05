@@ -13,10 +13,12 @@ This repository contains two Ansible playbooks:
    - Add User to Group 
    - Create a file on a server owned by that group. 
 
+## Required Files
 
 The variable files for each one are listed in the vars folder with ldap being for the Setup playbook and ldap_users is for the Features playbook. 
 
 Also needed:
+
 	- base.ldif to setup the LDAP environment.
     - inventory.ini for the Linux target, base and admin. 
 	- ansible.cfg for the ansible playbook command.
