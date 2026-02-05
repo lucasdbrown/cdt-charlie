@@ -18,4 +18,7 @@ $result = $conn->query("SELECT message FROM test_table");
 while ($row = $result->fetch_assoc()) {
     echo "<p>" . $row['message'] . "</p>"; # display each message in the databse 
 }
+
+$result = $conn->query("SELECT name FROM players");
+# display a table of players, team, number, position, etc, then customize?
 ?>
