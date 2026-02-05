@@ -1,13 +1,19 @@
+# Author: Lucas Brown
+# Playbook: Deploy AD
+# Purpose: Turn a Windows host into a Domain Controller by installing AD DS & DNS creating a new domain, and then creating an OU, group, and user.
+
   - name: Deploy AD
     hosts: windows
 
     vars:
-      domain_name: "hockey.cdtcharlie.com"
+      domain_name: "hockey.cdtcharlie.com" # FQDN
       netbios_name: "HOCKEY1"
-      safe_mode_password: "Password123!"
+      safe_mode_password: "Password123!" # Directory Services Restore Mode (DSRM) password for the domain controller
       dc_hostname: "DC1"
-      ou_name: "GreyTeam"
-      group_name: "BlueTeamAdmins"
+      ou_name: "GreyTeam" # Organizational Unit (OU) name to create inside the new domain
+      group_name: "BlueTeamAdmins" # Security group name to create inside the OU
+
+      # User details for a sample/domain user account created in the OU
       user_sam: "alice"
       user_given: "Alice"
       user_surname: "Operator"
@@ -28,7 +34,7 @@
       ansible.windows.win_feature:
         name: AD-Domain-Services
         state: present
-        include_management_tools: true
+        include_management_tools: true # installs RSAT/management tools too
       register: ad_feature_result
 
     - name: Install DNS
@@ -39,6 +45,7 @@
       register: dns_feature_result
 
     - name: Reboot after ADDS/DNS feature install if needed
+      # If either role install required a reboot, reboot before continuing
       ansible.windows.win_reboot:
         msg: "Rebooting after ADDS/DNS feature install"
       when: (ad_feature_result.reboot_required | default(false)) or (dns_feature_result.reboot_required | default(false))
@@ -59,6 +66,7 @@
       when: domain_create.reboot_required | default(true)
 
     - name: Create OU
+      # This path builds: DC=hockey,DC=cdtcharlie,DC=com from the domain_name.
       microsoft.ad.ou:
         name: "{{ ou_name }}"
         path: "DC={{ (domain_name | trim).split('.') | join(',DC=') }}"
@@ -82,6 +90,8 @@
         state: present
 
     - name: Add user to group
+      # Uses PowerShell to add the user to the group.
+      # "-ErrorAction SilentlyContinue" prevents the task from failing if the user is already a member.
       ansible.windows.win_powershell:
         script: |
           Import-Module ActiveDirectory
