@@ -27,7 +27,7 @@ This project contains an Ansible playbook that manages a Windows Server 2022 tar
 Edit variables at the top of `winrm-deploy.yml`:
 - `new_user`, `new_pass`
 - `banner_text`
-- `demo_service`
+- `service`
 
 ## Run
 ```bash
