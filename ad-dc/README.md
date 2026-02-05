@@ -1,3 +1,25 @@
+# AD Domain Controller / DNS — Ansible Playbook
+This folder contains an Ansible automation solution to deploy a Windows **Active Directory Domain Controller** (AD DS) with **DNS**, and provision a basic Organization Unit (OU), group, and user account.
+
+This Ansible playbook:
+1. Renames a Windows host
+2. Installs the **Active Directory Domain Services** and **DNS Server** roles
+3. Promotes the host to a **Domain Controller**
+4. Creates:
+   - A specific **Organizational Unit**
+   - A **security group**
+   - A domain **user**
+   - Adds the user to the group
+
+### Control Machine
+- Ansible 2.11+
+- WinRM configured on target Windows host
+- Python installed (on control machine)
+- Required Ansible Collections:
+  ```sh
+  ansible-galaxy collection install ansible.windows
+  ansible-galaxy collection install microsoft.ad
+  ```
 
 Output of the playbook:
 ```sh
