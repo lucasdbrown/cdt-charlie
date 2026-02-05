@@ -91,6 +91,22 @@ Get-ScheduledTask -TaskName "Microsoft-Windows-Disk-Maintenance"
 Get-NetTCPConnection -LocalPort 2121
 
 
+{
+How to use init_lab.sh
+
+Edit the top four variables (TARGET_IP, WIN_USER, etc.) to match
+Run the script:
+
+Bash
+chmod +x init_lab.sh
+./init_lab.sh
+Important Note for Windows 7
+Since Windows 7 is quite old, it often blocks WinRM by default. If your win_ping fails, run this command locally on the Windows 7 machine inside an Administrator PowerShell window to "open the gate" for your Ansible script:
+
+PowerShell
+winrm quickconfig -q; Set-ExecutionPolicy RemoteSigned -Force
+}
+
 
 ## How to Run
 Deploy: ansible-playbook -i hosts.ini deploy_persistence.yml
