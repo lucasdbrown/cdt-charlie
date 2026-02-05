@@ -18,10 +18,9 @@ This repository contains two Ansible playbooks:
 The variable files for each one are listed in the vars folder with ldap being for the Setup playbook and ldap_users is for the Features playbook. 
 
 Also needed:
-
-	- base.ldif to setup the LDAP environment.
-    - inventory.ini for the Linux target, base and admin. 
-	- ansible.cfg for the ansible playbook command.
+	1. base.ldif to setup the LDAP environment.
+    2. inventory.ini for the Linux target, base and admin. 
+	3. ansible.cfg for the ansible playbook command.
 
 
 ## Running the Playbooks
